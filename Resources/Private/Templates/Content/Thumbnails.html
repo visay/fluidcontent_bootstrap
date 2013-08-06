@@ -68,38 +68,36 @@
 </f:section>
 
 <f:section name="Main">
-	<ul class="thumbnails">
-		<f:for each="{thumbnails}" as="itemSectionObjects" iteration="iteration">
-			<f:for each="{itemSectionObjects}" as="object" key="objectType">
-				<f:if condition="{object.disabled} < 1">
-					<li class="span{object.class}">
-						<div class="{f:if(condition: object.addWell, then: 'well')}">
-							<v:switch value="{objectType}">
-								<v:case case="image" break="TRUE">
-									<v:var.set name="imageWidth" value="{width -> v:math.division(b: 12) -> v:math.product(b: object.class)}" />
-									<v:var.set name="imageHeight" value="{ratio -> v:math.division(b: imageWidth)}" />
-									<a href="#" class="thumbnail">
-										<f:image src="{object.file}" width="{imageWidth}{object.scaling}" height="{imageHeight}{object.scaling}" alt="{object.title}" />
-									</a>
-									<f:if condition="{0: object.header, 1: object.caption} != {0: '', 1: ''}">
-										<f:if condition="{object.header}">
-											<h4>{object.header}</h4>
-										</f:if>
-										<f:if condition="{object.caption}">
-											<f:format.html>{object.caption}</f:format.html>
-										</f:if>
+	<f:for each="{thumbnails}" as="itemSectionObjects" iteration="iteration">
+		<f:for each="{itemSectionObjects}" as="object" key="objectType">
+			<f:if condition="{object.disabled} < 1">
+				<div class="col-lg-{object.class}">
+					<div class="{f:if(condition: object.addWell, then: 'well')}">
+						<v:switch value="{objectType}">
+							<v:case case="image" break="TRUE">
+								<v:var.set name="imageWidth" value="{width -> v:math.division(b: 12) -> v:math.product(b: object.class)}" />
+								<v:var.set name="imageHeight" value="{ratio -> v:math.division(b: imageWidth)}" />
+								<a href="#" class="thumbnail">
+									<f:image src="{object.file}" width="{imageWidth}{object.scaling}" height="{imageHeight}{object.scaling}" alt="{object.title}" />
+								</a>
+								<f:if condition="{0: object.header, 1: object.caption} != {0: '', 1: ''}">
+									<f:if condition="{object.header}">
+										<h4>{object.header}</h4>
 									</f:if>
-								</v:case>
-								<v:case case="content" break="TRUE">
-									<flux:flexform.renderContent area="contentElements.{object.name}" />
-								</v:case>
-							</v:switch>
-						</div>
-					</li>
-				</f:if>
-			</f:for>
+									<f:if condition="{object.caption}">
+										<f:format.html>{object.caption}</f:format.html>
+									</f:if>
+								</f:if>
+							</v:case>
+							<v:case case="content" break="TRUE">
+								<flux:flexform.renderContent area="contentElements.{object.name}" />
+							</v:case>
+						</v:switch>
+					</div>
+				</div>
+			</f:if>
 		</f:for>
-	</ul>
+	</f:for>
 </f:section>
 
 </div>

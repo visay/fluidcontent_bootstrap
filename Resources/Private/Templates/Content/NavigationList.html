@@ -51,20 +51,20 @@
 
 <f:section name="Main">
 	<div class="{class} {f:if(condition: addWell, then: 'well')}" style="{f:if(condition: zeroPadding, then: 'padding: 8px 0px 8px 0px;')}">
-		<ul class="nav nav-list">
+		<ul class="list-group">
 			<f:for each="{items}" as="itemSectionObjects">
 				<v:var.set name="icon" value="" />
 				<f:for each="{itemSectionObjects}" as="object" key="objectType">
 					<v:switch value="{objectType}">
 						<v:case case="header" break="TRUE">
-							<li class="nav-header {object.class}"><f:format.raw>{icon}{object.text}</f:format.raw></li>
+							<li class="dropdown-header {object.class}"><f:format.raw>{icon}{object.text}</f:format.raw></li>
 						</v:case>
 						<v:case case="divider" break="TRUE">
 							<li class="divider {object.class}"></li>
 						</v:case>
 						<v:case case="default">
 							<v:var.set name="icon" value="{v:media.exists(file: object.icon, then: '<img src=\'{object.icon}\' alt=\'\' class=\'icon-blank\' /> ', else: '')}" />
-							<li class="{f:if(condition: '{contentObject.pid} == {object.target}', then: 'active', else: 'item')}">
+							<li class="{f:if(condition: '{contentObject.pid} == {object.target}', then: 'list-group-item active ', else: 'list-group-item')}">
 								<f:if condition="{object.target -> v:math.round()} > 0">
 									<f:then>
 										<f:link.page pageUid="{object.target}" class="{object.class}" rel="{f:if(condition: object.tooltip, then: 'tooltip')}" title="{object.tooltip}"><f:format.raw>{icon}{object.text}</f:format.raw></f:link.page>
